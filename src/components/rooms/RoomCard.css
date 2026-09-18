@@ -1,0 +1,195 @@
+.room-card-box {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.15rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.875rem;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.room-card-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: var(--border-color);
+}
+
+.room-card-box.status-vacant::before {
+  background-color: #10b981;
+}
+
+.room-card-box.status-occupied::before {
+  background-color: #0284c7;
+}
+
+.room-card-box.status-maintenance::before {
+  background-color: #f59e0b;
+}
+
+.room-card-box.status-out-of-service::before {
+  background-color: #ef4444;
+}
+
+.room-card-box:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.card-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.room-number-wrapper {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.room-title-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.room-title-number {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--primary-navy);
+  letter-spacing: -0.02em;
+}
+
+.card-body-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.room-type-tag {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.room-floor-text {
+  font-size: 0.775rem;
+  color: var(--text-secondary);
+}
+
+.room-price-tag {
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.price-num {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--accent-gold-dark);
+}
+
+.price-unit {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.current-guest-box {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.6rem;
+  background-color: #e0f2fe;
+  color: #0369a1;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+
+.guest-box-icon {
+  flex-shrink: 0;
+}
+
+.housekeeping-wrapper {
+  margin-top: 0.4rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.hk-label {
+  font-size: 0.725rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.card-actions-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.card-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.775rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.card-action-btn.view-btn:hover {
+  background-color: var(--status-info-bg);
+  color: var(--status-info-text);
+  border-color: var(--status-info-border);
+}
+
+.card-action-btn.edit-btn:hover {
+  background-color: var(--accent-gold-bg);
+  color: var(--accent-gold-dark);
+  border-color: var(--accent-gold-border);
+}
+
+.status-dropdown-wrapper {
+  flex: 1;
+}
+
+.quick-status-select {
+  width: 100%;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-subtle);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.quick-status-select:hover,
+.quick-status-select:focus {
+  border-color: var(--accent-gold);
+}

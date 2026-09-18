@@ -1,0 +1,54 @@
+.room-inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 1400px) {
+  .room-inventory-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .room-inventory-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .room-inventory-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.room-grid-empty {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.empty-clear-action {
+  margin-top: 0.5rem;
+}
+
+.empty-clear-btn {
+  padding: 0.6rem 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--accent-gold-border);
+  background-color: var(--accent-gold-bg);
+  color: var(--accent-gold-dark);
+  transition: all var(--transition-fast);
+}
+
+.empty-clear-btn:hover {
+  background-color: var(--accent-gold);
+  color: #ffffff;
+}

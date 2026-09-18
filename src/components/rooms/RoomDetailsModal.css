@@ -1,0 +1,151 @@
+.room-details-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.room-details-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, var(--primary-navy) 0%, var(--secondary-navy) 100%);
+  color: #ffffff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.r-title-box {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.r-icon-badge {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #c5a059 0%, #a37f39 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.r-title-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.r-number-heading {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+}
+
+.r-type-sub {
+  font-size: 0.8rem;
+  color: var(--accent-gold);
+}
+
+.r-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .r-specs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.r-spec-card {
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.875rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.r-spec-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.r-spec-val {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.r-spec-val.highlight-gold {
+  color: var(--accent-gold-dark);
+  font-weight: 800;
+}
+
+.text-bold {
+  font-weight: 700;
+}
+
+.occupied-guest-card {
+  background-color: #e0f2fe;
+  border: 1px solid #bae6fd;
+  border-radius: var(--radius-md);
+  padding: 0.875rem 1rem;
+
+  color: #0369a1;
+}
+
+.occ-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.occ-guest-name {
+  font-size: 1rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.room-description-card {
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.875rem 1rem;
+}
+
+.desc-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.775rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+
+.desc-card-text {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.room-details-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 0.5rem;
+}

@@ -1,0 +1,109 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.btn-sm {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.825rem;
+}
+
+.btn-md {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.875rem;
+}
+
+.btn-lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+/* Primary Accent Gold */
+.btn-primary {
+  background-color: var(--accent-gold);
+  color: #ffffff;
+  border: 1px solid var(--accent-gold-dark);
+  box-shadow: 0 2px 4px rgba(197, 160, 89, 0.25);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--accent-gold-dark);
+  box-shadow: 0 4px 8px rgba(197, 160, 89, 0.35);
+  transform: translateY(-1px);
+}
+
+/* Navy Primary Option */
+.btn-navy {
+  background-color: var(--primary-navy);
+  color: #ffffff;
+  border: 1px solid var(--secondary-navy);
+}
+
+.btn-navy:hover:not(:disabled) {
+  background-color: var(--secondary-navy);
+  transform: translateY(-1px);
+}
+
+/* Secondary Slate */
+.btn-secondary {
+  background-color: var(--bg-subtle);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #e2e8f0;
+  color: var(--text-primary);
+}
+
+/* Outline Gold */
+.btn-outline {
+  background: transparent;
+  color: var(--accent-gold-dark);
+  border: 1px solid var(--accent-gold);
+}
+
+.btn-outline:hover:not(:disabled) {
+  background-color: var(--accent-gold-bg);
+}
+
+/* Ghost */
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid transparent;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background-color: var(--bg-subtle);
+  color: var(--text-primary);
+}
+
+/* Danger */
+.btn-danger {
+  background-color: var(--status-danger-bg);
+  color: var(--status-danger-text);
+  border: 1px solid var(--status-danger-border);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: #fecdd3;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}

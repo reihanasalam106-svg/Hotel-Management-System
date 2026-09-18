@@ -1,0 +1,133 @@
+.reservations-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.page-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.page-header-title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.page-main-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.page-sub-title {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.new-reservation-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  background: linear-gradient(135deg, #c5a059 0%, #a37f39 100%);
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 12px rgba(197, 160, 89, 0.35);
+  transition: all var(--transition-fast);
+}
+
+.new-reservation-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(197, 160, 89, 0.45);
+  background: linear-gradient(135deg, #d4af66 0%, #b28c42 100%);
+}
+
+.res-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 1024px) {
+  .res-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .res-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.res-kpi-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.15rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.res-kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.res-kpi-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.res-kpi-icon.blue {
+  background-color: #e0f2fe;
+  color: #0369a1;
+}
+
+.res-kpi-icon.green {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.res-kpi-icon.gold {
+  background-color: var(--accent-gold-bg);
+  color: var(--accent-gold-dark);
+}
+
+.res-kpi-icon.orange {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.res-kpi-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.res-kpi-label {
+  font-size: 0.775rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.res-kpi-value {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.2;
+}

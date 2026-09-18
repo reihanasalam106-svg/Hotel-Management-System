@@ -1,0 +1,297 @@
+.reservation-table-container {
+  width: 100%;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  overflow: hidden;
+}
+
+.table-empty-wrapper {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+}
+
+.desktop-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.reservation-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+.reservation-table th {
+  padding: 0.875rem 1rem;
+  background-color: var(--bg-subtle);
+  color: var(--text-secondary);
+  font-weight: 700;
+  font-size: 0.775rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.sortable-th {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--transition-fast);
+}
+
+.sortable-th:hover {
+  background-color: #e2e8f0;
+}
+
+.th-content {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.sort-icon {
+  transition: color var(--transition-fast);
+}
+
+.sort-icon.inactive {
+  color: var(--text-muted);
+}
+
+.sort-icon.active {
+  color: var(--accent-gold-dark);
+}
+
+.th-actions {
+  text-align: right;
+  padding-right: 1.5rem;
+}
+
+.reservation-table-row {
+  transition: background-color var(--transition-fast);
+}
+
+.reservation-table-row:hover {
+  background-color: rgba(248, 250, 252, 0.9);
+}
+
+.reservation-table td {
+  padding: 0.9rem 1rem;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-subtle);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.id-tag {
+  font-weight: 700;
+  color: var(--primary-navy);
+  background-color: var(--bg-subtle);
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+}
+
+.guest-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.guest-name-text {
+  font-weight: 700;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+.guest-contact {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.room-badge {
+  font-weight: 600;
+  color: var(--text-primary);
+  background-color: #f1f5f9;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+}
+
+.room-type-text {
+  font-size: 0.825rem;
+  color: var(--text-secondary);
+}
+
+.amount-val {
+  font-weight: 700;
+  color: var(--accent-gold-dark);
+}
+
+.cell-actions {
+  text-align: right;
+}
+
+.action-buttons-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.35rem;
+}
+
+.row-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.775rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.row-action-btn.view-btn:hover {
+  background-color: var(--status-info-bg);
+  color: var(--status-info-text);
+  border-color: var(--status-info-border);
+}
+
+.row-action-btn.edit-btn:hover {
+  background-color: var(--accent-gold-bg);
+  color: var(--accent-gold-dark);
+  border-color: var(--accent-gold-border);
+}
+
+.row-action-btn.cancel-btn:hover {
+  background-color: var(--status-danger-bg);
+  color: var(--status-danger-text);
+  border-color: var(--status-danger-border);
+}
+
+/* MOBILE CARDS VIEW (< 768px) */
+.mobile-cards-list {
+  display: none;
+  flex-direction: column;
+  gap: 0.875rem;
+  padding: 0.875rem;
+}
+
+@media (max-width: 768px) {
+  .desktop-table-responsive {
+    display: none;
+  }
+  .mobile-cards-list {
+    display: flex;
+  }
+}
+
+.mobile-reservation-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.card-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-res-id {
+  font-weight: 700;
+  color: var(--primary-navy);
+  font-size: 0.85rem;
+}
+
+.card-guest-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.card-guest-contact {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 0.15rem 0 0.5rem 0;
+}
+
+.card-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  background-color: var(--bg-subtle);
+  padding: 0.65rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+}
+
+.card-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--text-primary);
+}
+
+.meta-icon {
+  color: var(--accent-gold-dark);
+}
+
+.card-amount {
+  color: var(--accent-gold-dark);
+  font-weight: 800;
+}
+
+.card-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.mobile-action-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+
+  color: var(--text-primary);
+}
+
+.mobile-action-btn.view {
+  color: var(--status-info-text);
+  background-color: var(--status-info-bg);
+  border-color: var(--status-info-border);
+}
+
+.mobile-action-btn.edit {
+  color: var(--accent-gold-dark);
+  background-color: var(--accent-gold-bg);
+  border-color: var(--accent-gold-border);
+}
+
+.mobile-action-btn.cancel {
+  color: var(--status-danger-text);
+  background-color: var(--status-danger-bg);
+  border-color: var(--status-danger-border);
+}
