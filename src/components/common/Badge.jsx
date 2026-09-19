@@ -8,12 +8,14 @@ export const Badge = ({ children, status, variant = 'default', size = 'md' }) =>
     
     switch (normalized) {
       case 'checked-in':
+      case 'in-house':
       case 'occupied':
       case 'completed':
       case 'active':
       case 'paid':
         return 'badge-success';
       case 'confirmed':
+      case 'upcoming':
       case 'vacant':
       case 'medium':
       case 'regular':

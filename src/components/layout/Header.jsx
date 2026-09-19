@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Bell, Menu, Calendar as CalendarIcon, User, Search, CheckCircle2 } from 'lucide-react';
+import { Bell, Menu, Calendar as CalendarIcon, User, CheckCircle2 } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 import './Header.css';
 
 export const Header = ({ onToggleMobileSidebar }) => {
   const location = useLocation();
+  const { user } = useAuth();
   const [showNotifications, setShowNotifications] = useState(false);
+
+  const displayName = user?.full_name || user?.username || 'User';
+  const displayRole = user?.role || 'Staff';
 
   // Helper to resolve route titles and subheaders
   const getRouteInfo = (pathname) => {
     switch (pathname) {
       case '/dashboard':
         return {
-          title: 'Welcome back, Admin 👋',
+          title: `Welcome back, ${displayName} 👋`,
           description: 'Manage your hotel operations efficiently'
         };
       case '/reservations':
@@ -111,28 +116,21 @@ export const Header = ({ onToggleMobileSidebar }) => {
             <div className="notification-dropdown">
               <div className="dropdown-header">
                 <span className="dropdown-title">Notifications</span>
-                <span className="dropdown-count">3 New</span>
+                <span className="dropdown-count">Active</span>
               </div>
               <div className="dropdown-list">
                 <div className="dropdown-item">
                   <CheckCircle2 size={16} className="text-success" />
                   <div className="item-content">
-                    <p className="item-text">Aarav Sharma checked into Room 101</p>
-                    <span className="item-time">10 mins ago</span>
-                  </div>
-                </div>
-                <div className="dropdown-item">
-                  <div className="dot-warning" />
-                  <div className="item-content">
-                    <p className="item-text">Room 303 marked for Maintenance</p>
-                    <span className="item-time">45 mins ago</span>
+                    <p className="item-text">PostgreSQL Database synchronized</p>
+                    <span className="item-time">Live Status</span>
                   </div>
                 </div>
                 <div className="dropdown-item">
                   <div className="dot-info" />
                   <div className="item-content">
-                    <p className="item-text">New reservation from Booking.com</p>
-                    <span className="item-time">2 hours ago</span>
+                    <p className="item-text">Authenticated as {displayRole}</p>
+                    <span className="item-time">JWT Active</span>
                   </div>
                 </div>
               </div>
@@ -149,11 +147,13 @@ export const Header = ({ onToggleMobileSidebar }) => {
             <span className="status-online-dot" title="Online" />
           </div>
           <div className="user-info">
-            <span className="user-name">Admin</span>
-            <span className="user-role">Hotel Manager</span>
+            <span className="user-name">{displayName}</span>
+            <span className="user-role">{displayRole}</span>
           </div>
         </div>
       </div>
     </header>
   );
 };
+
+export default Header;

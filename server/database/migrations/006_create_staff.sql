@@ -1,0 +1,14 @@
+-- 006_create_staff.sql
+CREATE TABLE IF NOT EXISTS staff (
+    id VARCHAR(50) PRIMARY KEY,
+    staff_code VARCHAR(50) UNIQUE NOT NULL,
+    name VARCHAR(150) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    phone VARCHAR(50) DEFAULT '',
+    role VARCHAR(50) NOT NULL DEFAULT 'Staff',
+    department VARCHAR(100) DEFAULT 'Operations',
+    shift VARCHAR(50) DEFAULT 'General',
+    status VARCHAR(50) NOT NULL DEFAULT 'Active',
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);

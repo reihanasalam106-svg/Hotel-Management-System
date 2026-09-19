@@ -5,7 +5,8 @@ import { Button } from '../../components/common/Button';
 import { Pagination } from '../../components/common/Pagination';
 import { EmptyState } from '../../components/common/EmptyState';
 import { ConfirmDialog } from '../../components/common/ConfirmDialog';
-import { Plus, ClipboardList } from 'lucide-react';
+import { LoadingState } from '../../components/common/LoadingState';
+import { Plus, ClipboardList, RefreshCw } from 'lucide-react';
 
 import { HousekeepingSummaryCards } from '../../components/housekeeping/HousekeepingSummaryCards';
 import { HousekeepingDashboardView } from '../../components/housekeeping/HousekeepingDashboardView';
@@ -23,12 +24,33 @@ export const Housekeeping = () => {
     rooms,
     housekeepingTasks,
     housekeepingStaff,
+    staff = [],
     addHousekeepingTask,
     updateHousekeepingTask,
     updateHousekeepingTaskStatus,
     reassignTaskStaff,
-    deleteHousekeepingTask
+    deleteHousekeepingTask,
+    isLoading,
+    error,
+    refreshAllData
   } = useHotel();
+
+  // Active staff list combining central staff management
+  const availableStaff = useMemo(() => {
+    if (staff && staff.length > 0) {
+      const activeCentral = staff
+        .filter((s) => s.status !== 'Inactive')
+        .map((s) => ({
+          id: s.id,
+          name: s.name,
+          role: s.role,
+          shift: s.shift,
+          assignedCount: housekeepingTasks.filter((t) => t.staffId === s.id || (t.staff && t.staff.toLowerCase().includes(s.name.split(' ')[0].toLowerCase()))).length
+        }));
+      return activeCentral.length > 0 ? activeCentral : housekeepingStaff;
+    }
+    return housekeepingStaff;
+  }, [staff, housekeepingStaff, housekeepingTasks]);
 
   // View state
   const [viewMode, setViewMode] = useState('table'); // 'table' | 'grid'
@@ -210,6 +232,25 @@ export const Housekeeping = () => {
       setDeletingTask(null);
     }
   };
+
+  if (isLoading && rooms.length === 0 && housekeepingTasks.length === 0) {
+    return (
+      <div className="module-page housekeeping-container">
+        <LoadingState label="Loading housekeeping operations from database..." />
+      </div>
+    );
+  }
+
+  if (error && rooms.length === 0) {
+    return (
+      <div className="module-page housekeeping-container" style={{ padding: '2rem', textAlign: 'center' }}>
+        <p style={{ color: '#ef4444', marginBottom: '1rem' }}>{error}</p>
+        <Button onClick={refreshAllData} variant="primary" icon={RefreshCw}>
+          Retry Loading
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className="module-page housekeeping-container">

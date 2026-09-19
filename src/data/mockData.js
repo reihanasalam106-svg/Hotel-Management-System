@@ -587,6 +587,50 @@ export const sampleGuests = [
     lastStay: '2026-07-25',
     preferences: 'Non-smoking room',
     specialRequests: 'Early breakfast request'
+  },
+  {
+    id: 'G-1015',
+    name: 'Amitabh Sen',
+    phone: '+91 90543 21098',
+    email: 'amitabh.s@example.com',
+    address: 'Kolkata, West Bengal',
+    city: 'Kolkata',
+    state: 'West Bengal',
+    pincode: '700019',
+    nationality: 'Indian',
+    idType: 'Passport',
+    idNumber: 'P7654321',
+    dateOfBirth: '1984-08-16',
+    guestType: 'Returning Guest',
+    status: 'In House',
+    currentRoom: '204',
+    currentReservationId: 'RES-1012',
+    totalBookings: 6,
+    lastStay: '2026-09-12',
+    preferences: 'Late checkout, King bed',
+    specialRequests: 'Quiet room requested'
+  },
+  {
+    id: 'G-1016',
+    name: 'Tanya Deshmukh',
+    phone: '+91 90432 10987',
+    email: 'tanya.d@example.com',
+    address: 'Indore, Madhya Pradesh',
+    city: 'Indore',
+    state: 'Madhya Pradesh',
+    pincode: '452001',
+    nationality: 'Indian',
+    idType: 'Voter ID',
+    idNumber: 'XYZ9876543',
+    dateOfBirth: '1996-03-21',
+    guestType: 'New Guest',
+    status: 'Upcoming',
+    currentRoom: '301',
+    currentReservationId: 'RES-1013',
+    totalBookings: 1,
+    lastStay: '2026-09-18',
+    preferences: 'High floor, vegetarian meals',
+    specialRequests: 'Honeymoon amenities'
   }
 ];
 
@@ -823,13 +867,6 @@ export const sampleHousekeepingTasks = [
     createdAt: '2026-09-18 10:00 AM',
     updatedAt: '2026-09-18 11:45 AM'
   }
-];
-
-export const sampleStaff = [
-  { id: 'EMP-01', name: 'Vikramaditya Roy', role: 'General Manager', department: 'Executive', shift: 'Morning', status: 'Active' },
-  { id: 'EMP-02', name: 'Deepika Kapoor', role: 'Front Desk Lead', department: 'Reception', shift: 'Morning', status: 'Active' },
-  { id: 'EMP-03', name: 'Rajesh Kumar', role: 'Maintenance Engineer', department: 'Engineering', shift: 'On Call', status: 'Active' },
-  { id: 'EMP-04', name: 'Sunita Rao', role: 'Housekeeping Supervisor', department: 'Housekeeping', shift: 'Day', status: 'Active' }
 ];
 
 export const sampleInvoices = [
@@ -1288,11 +1325,310 @@ export const sampleInvoices = [
     payments: [
       { id: 'PAY-111', date: '2026-08-03', method: 'Bank Transfer', amount: 17700, reference: 'NEFT/88102', recordedBy: 'Vikramaditya Roy', status: 'Completed' }
     ],
-    invoiceStatus: 'Issued',
-    createdAt: '2026-08-01',
-    dueDate: '2026-08-03',
-    notes: 'Prior stay invoice.'
   }
 ];
+
+export const sampleStaff = [
+  {
+    id: 'STF-101',
+    name: 'Arun Kumar',
+    phone: '+91 98765 00101',
+    email: 'arun.k@hotelpro.com',
+    role: 'Admin',
+    department: 'Management',
+    shift: 'General',
+    status: 'Active',
+    joinedDate: '2023-01-15',
+    assignedTasks: 0,
+    address: '12 Marine Lines, Mumbai',
+    emergencyContact: '+91 98765 99901 (Spouse)',
+    notes: 'General Manager overseeing operations'
+  },
+  {
+    id: 'STF-102',
+    name: 'Priya Rao',
+    phone: '+91 98765 00102',
+    email: 'priya.r@hotelpro.com',
+    role: 'Receptionist',
+    department: 'Front Office',
+    shift: 'Morning',
+    status: 'On Duty',
+    joinedDate: '2023-06-10',
+    assignedTasks: 2,
+    address: '45 Bandra West, Mumbai',
+    emergencyContact: '+91 98765 99902 (Parent)',
+    notes: 'Front Desk Team Lead'
+  },
+  {
+    id: 'STF-103',
+    name: 'Kavitha S',
+    phone: '+91 98765 00103',
+    email: 'kavitha.s@hotelpro.com',
+    role: 'Accountant',
+    department: 'Finance',
+    shift: 'General',
+    status: 'Active',
+    joinedDate: '2023-04-01',
+    assignedTasks: 0,
+    address: '88 Powai, Mumbai',
+    emergencyContact: '+91 98765 99903 (Spouse)',
+    notes: 'Senior Accountant and Billing Controller'
+  },
+  {
+    id: 'STF-104',
+    name: 'Meena P',
+    phone: '+91 98765 00104',
+    email: 'meena.p@hotelpro.com',
+    role: 'Housekeeping',
+    department: 'Housekeeping',
+    shift: 'Morning',
+    status: 'On Duty',
+    joinedDate: '2023-08-20',
+    assignedTasks: 3,
+    address: '14 Andheri East, Mumbai',
+    emergencyContact: '+91 98765 99904 (Brother)',
+    notes: 'Lead Room Inspector'
+  },
+  {
+    id: 'STF-105',
+    name: 'Sunita R',
+    phone: '+91 98765 00105',
+    email: 'sunita.r@hotelpro.com',
+    role: 'Housekeeping',
+    department: 'Housekeeping',
+    shift: 'Morning',
+    status: 'On Duty',
+    joinedDate: '2023-09-01',
+    assignedTasks: 4,
+    address: '22 Juhu Road, Mumbai',
+    emergencyContact: '+91 98765 99905 (Spouse)',
+    notes: 'Deep Cleaning Specialist'
+  },
+  {
+    id: 'STF-106',
+    name: 'Karan M',
+    phone: '+91 98765 00106',
+    email: 'karan.m@hotelpro.com',
+    role: 'Housekeeping',
+    department: 'Housekeeping',
+    shift: 'Afternoon',
+    status: 'Active',
+    joinedDate: '2024-01-12',
+    assignedTasks: 2,
+    address: '10 Dadar West, Mumbai',
+    emergencyContact: '+91 98765 99906 (Parent)',
+    notes: 'Linen and Laundry Supervisor'
+  },
+  {
+    id: 'STF-107',
+    name: 'Rajesh K',
+    phone: '+91 98765 00107',
+    email: 'rajesh.k@hotelpro.com',
+    role: 'Maintenance',
+    department: 'Maintenance',
+    shift: 'General',
+    status: 'On Duty',
+    joinedDate: '2023-05-18',
+    assignedTasks: 2,
+    address: '33 Thane West, Mumbai',
+    emergencyContact: '+91 98765 99907 (Spouse)',
+    notes: 'Chief HVAC Technician'
+  },
+  {
+    id: 'STF-108',
+    name: 'Rahul S',
+    phone: '+91 98765 00108',
+    email: 'rahul.s@hotelpro.com',
+    role: 'Receptionist',
+    department: 'Front Office',
+    shift: 'Night',
+    status: 'Off Duty',
+    joinedDate: '2024-02-01',
+    assignedTasks: 0,
+    address: '19 Malad West, Mumbai',
+    emergencyContact: '+91 98765 99908 (Parent)',
+    notes: 'Night Audit Specialist'
+  },
+  {
+    id: 'STF-109',
+    name: 'Sneha V',
+    phone: '+91 98765 00109',
+    email: 'sneha.v@hotelpro.com',
+    role: 'Manager',
+    department: 'Management',
+    shift: 'General',
+    status: 'Active',
+    joinedDate: '2023-03-10',
+    assignedTasks: 0,
+    address: '56 Worli Seaface, Mumbai',
+    emergencyContact: '+91 98765 99909 (Spouse)',
+    notes: 'Guest Relations Manager'
+  },
+  {
+    id: 'STF-110',
+    name: 'Karthik M',
+    phone: '+91 98765 00110',
+    email: 'karthik.m@hotelpro.com',
+    role: 'Security',
+    department: 'Security',
+    shift: 'Night',
+    status: 'Active',
+    joinedDate: '2023-11-15',
+    assignedTasks: 0,
+    address: '77 Kurla West, Mumbai',
+    emergencyContact: '+91 98765 99910 (Brother)',
+    notes: 'Head Security Officer'
+  },
+  {
+    id: 'STF-111',
+    name: 'Sanjana P',
+    phone: '+91 98765 00111',
+    email: 'sanjana.p@hotelpro.com',
+    role: 'Receptionist',
+    department: 'Front Office',
+    shift: 'Afternoon',
+    status: 'On Leave',
+    joinedDate: '2024-03-01',
+    assignedTasks: 0,
+    address: '12 Ghatkopar, Mumbai',
+    emergencyContact: '+91 98765 99911 (Spouse)',
+    notes: 'On annual leave'
+  },
+  {
+    id: 'STF-112',
+    name: 'Vishnu R',
+    phone: '+91 98765 00112',
+    email: 'vishnu.r@hotelpro.com',
+    role: 'Maintenance',
+    department: 'Maintenance',
+    shift: 'Morning',
+    status: 'Active',
+    joinedDate: '2024-04-10',
+    assignedTasks: 1,
+    address: '90 Chembur, Mumbai',
+    emergencyContact: '+91 98765 99912 (Father)',
+    notes: 'Plumbing & Electrical assistant'
+  },
+  {
+    id: 'STF-113',
+    name: 'Deepak K',
+    phone: '+91 98765 00113',
+    email: 'deepak.k@hotelpro.com',
+    role: 'Security',
+    department: 'Security',
+    shift: 'Morning',
+    status: 'Inactive',
+    joinedDate: '2022-10-01',
+    assignedTasks: 0,
+    address: '5 Vashi, Navi Mumbai',
+    emergencyContact: '+91 98765 99913 (Spouse)',
+    notes: 'Deactivated staff member'
+  }
+];
+
+export const sampleRoomTypes = [
+  {
+    id: 'RT-101',
+    name: 'Standard',
+    description: 'Comfortable queen room with workstation, high-speed Wi-Fi, and city view.',
+    defaultPrice: 3500,
+    maxGuests: 2,
+    amenities: 'Queen Bed, Wi-Fi, Air Conditioning, Smart TV, Desk',
+    status: 'Active'
+  },
+  {
+    id: 'RT-102',
+    name: 'Deluxe',
+    description: 'Spacious deluxe room with king bed, premium bath, and garden courtyard view.',
+    defaultPrice: 5000,
+    maxGuests: 2,
+    amenities: 'King Bed, Wi-Fi, Minibar, Bathtub, Coffee Maker, Garden View',
+    status: 'Active'
+  },
+  {
+    id: 'RT-103',
+    name: 'Executive',
+    description: 'Executive room with lounge access, workstation, and complimentary breakfast.',
+    defaultPrice: 6500,
+    maxGuests: 3,
+    amenities: 'King Bed, Executive Lounge Access, Breakfast, Wi-Fi, Minibar',
+    status: 'Active'
+  },
+  {
+    id: 'RT-104',
+    name: 'Suite',
+    description: 'Luxury suite featuring separate living area, balcony, and marble bath.',
+    defaultPrice: 8500,
+    maxGuests: 4,
+    amenities: 'King Bed + Sofa Bed, Separate Living Room, Balcony, Jacuzzi, Butler Service',
+    status: 'Active'
+  },
+  {
+    id: 'RT-105',
+    name: 'Presidential Suite',
+    description: 'Top floor penthouse suite with panoramic views, dining hall, and private lounge.',
+    defaultPrice: 15000,
+    maxGuests: 6,
+    amenities: '2 Master Bedrooms, Dining Hall, Kitchenette, Private Lounge, 24/7 Butler',
+    status: 'Active'
+  }
+];
+
+export const sampleSettings = {
+  hotelProfile: {
+    hotelName: 'HotelPro Grand',
+    address: '74 Luxury Palm Avenue, Marine Drive',
+    city: 'Mumbai',
+    state: 'Maharashtra',
+    country: 'India',
+    pincode: '400001',
+    phone: '+91 22 4988 2000',
+    email: 'contact@hotelprogrand.com',
+    website: 'www.hotelprogrand.com',
+    logoUrl: ''
+  },
+  general: {
+    currency: 'INR',
+    timeZone: 'Asia/Kolkata',
+    dateFormat: 'YYYY-MM-DD',
+    checkInTime: '14:00',
+    checkOutTime: '11:00',
+    defaultGuests: 2,
+    language: 'English'
+  },
+  billing: {
+    taxEnabled: true,
+    taxRate: 18,
+    taxName: 'GST',
+    serviceChargeEnabled: true,
+    serviceChargeRate: 5,
+    invoicePrefix: 'INV-'
+  },
+  invoice: {
+    invoicePrefix: 'INV-',
+    startingNumber: 1001,
+    showLogo: true,
+    showGuestAddress: true,
+    showPaymentDetails: true,
+    showTaxBreakdown: true,
+    footerMessage: 'Thank you for staying at HotelPro Grand. Have a safe journey!'
+  },
+  notifications: {
+    newReservation: true,
+    reservationCancellation: true,
+    guestCheckIn: true,
+    guestCheckOut: true,
+    paymentReceived: true,
+    pendingPayment: true,
+    housekeepingTaskAssigned: true,
+    maintenanceAlert: true
+  },
+  appearance: {
+    density: 'comfortable',
+    theme: 'light',
+    sidebarCollapsed: false
+  }
+};
+
 
 

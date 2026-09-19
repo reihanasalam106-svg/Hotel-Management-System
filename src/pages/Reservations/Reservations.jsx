@@ -6,11 +6,12 @@ import { ReservationFormModal } from '../../components/reservations/ReservationF
 import { ReservationDetailsModal } from '../../components/reservations/ReservationDetailsModal';
 import { ConfirmDialog } from '../../components/common/ConfirmDialog';
 import { Pagination } from '../../components/common/Pagination';
-import { Plus, Calendar, CheckCircle2, LogIn, Clock, IndianRupee } from 'lucide-react';
+import { LoadingState } from '../../components/common/LoadingState';
+import { Plus, Calendar, CheckCircle2, LogIn, Clock, IndianRupee, RefreshCw } from 'lucide-react';
 import './Reservations.css';
 
 export const Reservations = () => {
-  const { reservations, cancelReservation } = useReservations();
+  const { reservations, cancelReservation, isLoading, error, refreshAllData } = useReservations();
 
   // Filter States
   const [searchTerm, setSearchTerm] = useState('');
@@ -150,6 +151,26 @@ export const Reservations = () => {
       setCancellingReservation(null);
     }
   };
+
+  if (isLoading && reservations.length === 0) {
+    return (
+      <div className="reservations-management-page">
+        <LoadingState label="Loading reservations from database..." />
+      </div>
+    );
+  }
+
+  if (error && reservations.length === 0) {
+    return (
+      <div className="reservations-management-page" style={{ padding: '2rem', textAlign: 'center' }}>
+        <p style={{ color: '#ef4444', marginBottom: '1rem' }}>{error}</p>
+        <button onClick={refreshAllData} className="add-reservation-btn" style={{ margin: '0 auto' }}>
+          <RefreshCw size={16} />
+          <span>Retry Loading</span>
+        </button>
+      </div>
+    );
+  }
 
   // Quick Overview Stats
   const totalConfirmed = reservations.filter((r) => r.status === 'Confirmed').length;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { AppRoutes } from './routes/AppRoutes';
+import { AuthProvider } from './context/AuthContext';
 import { ReservationProvider, useReservations } from './context/ReservationContext';
 import { Toast } from './components/common/Toast';
 import './styles/global.css';
@@ -18,12 +19,13 @@ function AppContent() {
 export function App() {
   return (
     <BrowserRouter>
-      <ReservationProvider>
-        <AppContent />
-      </ReservationProvider>
+      <AuthProvider>
+        <ReservationProvider>
+          <AppContent />
+        </ReservationProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
 
 export default App;
-

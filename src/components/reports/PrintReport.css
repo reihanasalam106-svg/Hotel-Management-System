@@ -1,0 +1,53 @@
+/* Print View CSS Styles */
+@media print {
+  /* Hide UI elements that shouldn't be printed */
+  .sidebar,
+  .mobile-sidebar-drawer,
+  .app-header,
+  .no-print,
+  .btn,
+  .guest-action-menu-container,
+  .modal-overlay,
+  .report-filters-bar {
+    display: none !important;
+  }
+
+  /* Reset main wrapper layout for printing */
+  .main-wrapper {
+    margin-left: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+    background-color: #ffffff !important;
+  }
+
+  .content-area {
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    font-size: 12pt;
+  }
+
+  .card {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+    margin-bottom: 1rem !important;
+  }
+
+  /* Print Header Banner */
+  .print-only-header {
+    display: block !important;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #000;
+  }
+}
+
+.print-only-header {
+  display: none;
+}

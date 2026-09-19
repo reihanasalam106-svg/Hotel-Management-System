@@ -10,9 +10,13 @@ export const ReservationFormModal = ({
   onClose,
   initialData = null // if provided, we are in Edit mode
 }) => {
-  const { rooms, addReservation, updateReservation } = useReservations();
+  const { rooms, guests = [], addReservation, updateReservation } = useReservations();
+
+  const [guestMode, setGuestMode] = useState('existing'); // 'existing' | 'new'
+  const [selectedGuestId, setSelectedGuestId] = useState('');
 
   const [formData, setFormData] = useState({
+    guestId: '',
     guestName: '',
     phone: '',
     email: '',
@@ -31,6 +35,7 @@ export const ReservationFormModal = ({
   useEffect(() => {
     if (initialData) {
       setFormData({
+        guestId: initialData.guestId || '',
         guestName: initialData.guestName || '',
         phone: initialData.phone || '',
         email: initialData.email || '',
@@ -42,6 +47,12 @@ export const ReservationFormModal = ({
         paymentStatus: initialData.paymentStatus || 'Pending',
         specialRequest: initialData.specialRequest || ''
       });
+      if (initialData.guestId) {
+        setSelectedGuestId(initialData.guestId);
+        setGuestMode('existing');
+      } else {
+        setGuestMode('new');
+      }
     } else {
       // Default dates: today and 2 days later
       const today = new Date().toISOString().split('T')[0];
@@ -52,21 +63,79 @@ export const ReservationFormModal = ({
       // Default room number from available Deluxe rooms
       const defaultRoom = rooms.find((r) => r.type === 'Deluxe') || rooms[0];
 
-      setFormData({
-        guestName: '',
-        phone: '',
-        email: '',
-        roomType: 'Deluxe',
-        roomNumber: defaultRoom ? defaultRoom.number : '',
-        checkIn: today,
-        checkOut: dayAfter,
-        guests: 2,
-        paymentStatus: 'Pending',
-        specialRequest: ''
-      });
+      // Auto select first guest if available
+      const firstGuest = guests && guests.length > 0 ? guests[0] : null;
+
+      if (firstGuest && guestMode === 'existing') {
+        setSelectedGuestId(firstGuest.id);
+        setFormData({
+          guestId: firstGuest.id,
+          guestName: firstGuest.name,
+          phone: firstGuest.phone || '',
+          email: firstGuest.email || '',
+          roomType: 'Deluxe',
+          roomNumber: defaultRoom ? defaultRoom.number : '',
+          checkIn: today,
+          checkOut: dayAfter,
+          guests: 2,
+          paymentStatus: 'Pending',
+          specialRequest: ''
+        });
+      } else {
+        setFormData({
+          guestId: '',
+          guestName: '',
+          phone: '',
+          email: '',
+          roomType: 'Deluxe',
+          roomNumber: defaultRoom ? defaultRoom.number : '',
+          checkIn: today,
+          checkOut: dayAfter,
+          guests: 2,
+          paymentStatus: 'Pending',
+          specialRequest: ''
+        });
+      }
     }
     setErrors({});
   }, [initialData, isOpen, rooms]);
+
+  const handleSelectExistingGuest = (gId) => {
+    setSelectedGuestId(gId);
+    const found = guests.find((g) => g.id === gId);
+    if (found) {
+      setFormData((prev) => ({
+        ...prev,
+        guestId: found.id,
+        guestName: found.name,
+        phone: found.phone || '',
+        email: found.email || ''
+      }));
+    }
+  };
+
+  const handleGuestModeChange = (mode) => {
+    setGuestMode(mode);
+    if (mode === 'new') {
+      setFormData((prev) => ({
+        ...prev,
+        guestId: '',
+        guestName: '',
+        phone: '',
+        email: ''
+      }));
+    } else if (guests.length > 0) {
+      const g = guests.find((item) => item.id === selectedGuestId) || guests[0];
+      setSelectedGuestId(g.id);
+      setFormData((prev) => ({
+        ...prev,
+        guestId: g.id,
+        guestName: g.name,
+        phone: g.phone || '',
+        email: g.email || ''
+      }));
+    }
+  };
 
   // Available rooms based on roomType
   const availableRoomsForType = rooms.filter(
@@ -175,7 +244,66 @@ export const ReservationFormModal = ({
       <form onSubmit={handleSubmit} className="reservation-form">
         {/* SECTION 1: GUEST INFORMATION */}
         <div className="form-section">
-          <h4 className="form-section-title">Guest Information</h4>
+          <div className="guest-select-header">
+            <h4 className="form-section-title">Guest Information</h4>
+            {!initialData && (
+              <div className="guest-mode-switcher" style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.75rem' }}>
+                <button
+                  type="button"
+                  className={`btn-toggle-sm ${guestMode === 'existing' ? 'active' : ''}`}
+                  onClick={() => handleGuestModeChange('existing')}
+                  style={{
+                    padding: '0.3rem 0.75rem',
+                    fontSize: '0.8rem',
+                    borderRadius: '4px',
+                    border: '1px solid var(--border-color)',
+                    backgroundColor: guestMode === 'existing' ? 'var(--accent-gold)' : 'var(--bg-main)',
+                    color: guestMode === 'existing' ? '#fff' : 'var(--text-primary)',
+                    fontWeight: 600,
+                    cursor: 'pointer'
+                  }}
+                >
+                  Existing Guest
+                </button>
+                <button
+                  type="button"
+                  className={`btn-toggle-sm ${guestMode === 'new' ? 'active' : ''}`}
+                  onClick={() => handleGuestModeChange('new')}
+                  style={{
+                    padding: '0.3rem 0.75rem',
+                    fontSize: '0.8rem',
+                    borderRadius: '4px',
+                    border: '1px solid var(--border-color)',
+                    backgroundColor: guestMode === 'new' ? 'var(--accent-gold)' : 'var(--bg-main)',
+                    color: guestMode === 'new' ? '#fff' : 'var(--text-primary)',
+                    fontWeight: 600,
+                    cursor: 'pointer'
+                  }}
+                >
+                  + Create New Guest
+                </button>
+              </div>
+            )}
+          </div>
+
+          {!initialData && guestMode === 'existing' && guests.length > 0 && (
+            <div className="form-field" style={{ marginBottom: '1rem' }}>
+              <label className="form-label required">Select Existing Guest</label>
+              <select
+                className="form-select"
+                value={selectedGuestId}
+                onChange={(e) => handleSelectExistingGuest(e.target.value)}
+                style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}
+              >
+                {guests.map((g) => (
+                  <option key={g.id} value={g.id}>
+                    {g.id} — {g.name} ({g.phone || g.email || 'No contact'})
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
           <div className="form-grid-2">
             <div className="form-field">
               <label className="form-label required">Guest Full Name</label>
@@ -185,6 +313,7 @@ export const ReservationFormModal = ({
                 placeholder="e.g. Aarav Sharma"
                 value={formData.guestName}
                 onChange={(e) => setFormData({ ...formData, guestName: e.target.value })}
+                disabled={guestMode === 'existing' && Boolean(formData.guestId)}
               />
               {errors.guestName && (
                 <span className="field-error-msg">
@@ -210,7 +339,7 @@ export const ReservationFormModal = ({
             </div>
           </div>
 
-          <div className="form-field">
+          <div className="form-field" style={{ marginTop: '0.75rem' }}>
             <label className="form-label">Email Address (Optional)</label>
             <input
               type="email"

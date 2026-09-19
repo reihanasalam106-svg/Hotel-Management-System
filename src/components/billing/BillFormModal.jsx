@@ -35,6 +35,35 @@ export const BillFormModal = ({
   const [additionalServices, setAdditionalServices] = useState([]);
   const [errors, setErrors] = useState({});
 
+  const handleReservationSelect = React.useCallback((resId) => {
+    setSelectedResId(resId);
+    const res = reservations.find((r) => r.id === resId);
+    if (res) {
+      const checkInDate = new Date(res.checkIn);
+      const checkOutDate = new Date(res.checkOut);
+      const timeDiff = checkOutDate.getTime() - checkInDate.getTime();
+      const calculatedNights = Math.max(1, Math.ceil(timeDiff / (1000 * 3600 * 24)));
+
+      const roomObj = rooms.find((r) => r.number === String(res.roomNumber));
+      const rate = roomObj ? roomObj.ratePerNight : 5000;
+
+      setFormData((prev) => ({
+        ...prev,
+        reservationId: res.id,
+        guestId: res.guestId || 'G-1001',
+        guestName: res.guestName,
+        guestEmail: res.email || '',
+        guestPhone: res.phone || '',
+        roomNumber: res.roomNumber,
+        roomType: res.roomType || (roomObj ? roomObj.type : 'Deluxe'),
+        checkIn: res.checkIn,
+        checkOut: res.checkOut,
+        nights: calculatedNights,
+        roomRate: rate
+      }));
+    }
+  }, [reservations, rooms]);
+
   useEffect(() => {
     if (initialData) {
       setSelectedResId(initialData.reservationId || '');
@@ -78,36 +107,7 @@ export const BillFormModal = ({
       setAdditionalServices([]);
     }
     setErrors({});
-  }, [initialData, isOpen, reservations, defaultTaxRate]);
-
-  const handleReservationSelect = (resId) => {
-    setSelectedResId(resId);
-    const res = reservations.find((r) => r.id === resId);
-    if (res) {
-      const checkInDate = new Date(res.checkIn);
-      const checkOutDate = new Date(res.checkOut);
-      const timeDiff = checkOutDate.getTime() - checkInDate.getTime();
-      const calculatedNights = Math.max(1, Math.ceil(timeDiff / (1000 * 3600 * 24)));
-
-      const roomObj = rooms.find((r) => r.number === String(res.roomNumber));
-      const rate = roomObj ? roomObj.ratePerNight : 5000;
-
-      setFormData((prev) => ({
-        ...prev,
-        reservationId: res.id,
-        guestId: res.guestId || 'G-1001',
-        guestName: res.guestName,
-        guestEmail: res.email || '',
-        guestPhone: res.phone || '',
-        roomNumber: res.roomNumber,
-        roomType: res.roomType || (roomObj ? roomObj.type : 'Deluxe'),
-        checkIn: res.checkIn,
-        checkOut: res.checkOut,
-        nights: calculatedNights,
-        roomRate: rate
-      }));
-    }
-  };
+  }, [initialData, isOpen, reservations, defaultTaxRate, handleReservationSelect]);
 
   // Service item management
   const handleAddService = () => {

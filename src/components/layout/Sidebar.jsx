@@ -15,29 +15,37 @@ import {
   User,
   X
 } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 import './Sidebar.css';
 
 export const Sidebar = ({ isMobileOpen, onCloseMobile }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { user, logout, hasRole } = useAuth();
 
-  const navItems = [
-    { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
-    { name: 'Reservations', path: '/reservations', icon: Calendar },
-    { name: 'Rooms', path: '/rooms', icon: DoorOpen },
-    { name: 'Guests', path: '/guests', icon: Users },
-    { name: 'Housekeeping', path: '/housekeeping', icon: Sparkles },
-    { name: 'Billing', path: '/billing', icon: Receipt },
-    { name: 'Reports', path: '/reports', icon: BarChart3 },
-    { name: 'Staff', path: '/staff', icon: UserCheck },
-    { name: 'Settings', path: '/settings', icon: Settings }
+  const allNavItems = [
+    { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard, roles: ['Admin', 'Manager', 'Receptionist', 'Housekeeping', 'Staff'] },
+    { name: 'Reservations', path: '/reservations', icon: Calendar, roles: ['Admin', 'Manager', 'Receptionist'] },
+    { name: 'Rooms', path: '/rooms', icon: DoorOpen, roles: ['Admin', 'Manager', 'Receptionist', 'Housekeeping', 'Staff'] },
+    { name: 'Guests', path: '/guests', icon: Users, roles: ['Admin', 'Manager', 'Receptionist', 'Staff'] },
+    { name: 'Housekeeping', path: '/housekeeping', icon: Sparkles, roles: ['Admin', 'Manager', 'Receptionist', 'Housekeeping'] },
+    { name: 'Billing', path: '/billing', icon: Receipt, roles: ['Admin', 'Manager', 'Receptionist'] },
+    { name: 'Reports', path: '/reports', icon: BarChart3, roles: ['Admin', 'Manager'] },
+    { name: 'Staff', path: '/staff', icon: UserCheck, roles: ['Admin', 'Manager'] },
+    { name: 'Settings', path: '/settings', icon: Settings, roles: ['Admin', 'Manager'] }
   ];
 
-  const handleLogout = (e) => {
+  const visibleNavItems = allNavItems.filter(item => hasRole(...item.roles));
+
+  const handleLogout = async (e) => {
     e.preventDefault();
     if (onCloseMobile) onCloseMobile();
+    await logout();
     navigate('/login');
   };
+
+  const displayName = user?.full_name || user?.username || 'User';
+  const displayRole = user?.role || 'Staff';
 
   return (
     <>
@@ -69,7 +77,7 @@ export const Sidebar = ({ isMobileOpen, onCloseMobile }) => {
         <div className="sidebar-content">
           <div className="nav-section-label">MAIN MENU</div>
           <nav className="sidebar-nav">
-            {navItems.map((item) => {
+            {visibleNavItems.map((item) => {
               const IconComponent = item.icon;
               const isActive = location.pathname === item.path;
 
@@ -98,8 +106,8 @@ export const Sidebar = ({ isMobileOpen, onCloseMobile }) => {
               <User size={16} />
             </div>
             <div className="user-details">
-              <span className="user-name-text">Admin User</span>
-              <span className="user-role-text">Hotel Manager</span>
+              <span className="user-name-text">{displayName}</span>
+              <span className="user-role-text">{displayRole}</span>
             </div>
           </div>
           <button className="nav-link logout-link" onClick={handleLogout}>
@@ -112,3 +120,4 @@ export const Sidebar = ({ isMobileOpen, onCloseMobile }) => {
   );
 };
 
+export default Sidebar;

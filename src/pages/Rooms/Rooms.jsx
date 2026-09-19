@@ -7,11 +7,12 @@ import { RoomGrid } from '../../components/rooms/RoomGrid';
 import { RoomFormModal } from '../../components/rooms/RoomFormModal';
 import { RoomDetailsModal } from '../../components/rooms/RoomDetailsModal';
 import { SeasonalPricingModal } from '../../components/rooms/SeasonalPricingModal';
-import { Plus, Tag } from 'lucide-react';
+import { LoadingState } from '../../components/common/LoadingState';
+import { Plus, Tag, RefreshCw } from 'lucide-react';
 import './Rooms.css';
 
 export const Rooms = () => {
-  const { rooms, changeRoomStatus } = useHotel();
+  const { rooms, changeRoomStatus, isLoading, error, refreshAllData } = useHotel();
 
   // Filter States
   const [searchTerm, setSearchTerm] = useState('');
@@ -101,6 +102,26 @@ export const Rooms = () => {
   const handleOpenViewModal = (room) => {
     setViewingRoom(room);
   };
+
+  if (isLoading && rooms.length === 0) {
+    return (
+      <div className="rooms-management-page">
+        <LoadingState label="Loading room inventory from database..." />
+      </div>
+    );
+  }
+
+  if (error && rooms.length === 0) {
+    return (
+      <div className="rooms-management-page" style={{ padding: '2rem', textAlign: 'center' }}>
+        <p style={{ color: '#ef4444', marginBottom: '1rem' }}>{error}</p>
+        <button onClick={refreshAllData} className="add-room-btn" style={{ margin: '0 auto' }}>
+          <RefreshCw size={16} />
+          <span>Retry Loading</span>
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="rooms-management-page">

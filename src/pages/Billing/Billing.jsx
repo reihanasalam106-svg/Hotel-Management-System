@@ -5,7 +5,8 @@ import { Button } from '../../components/common/Button';
 import { Pagination } from '../../components/common/Pagination';
 import { EmptyState } from '../../components/common/EmptyState';
 import { ConfirmDialog } from '../../components/common/ConfirmDialog';
-import { Receipt, CreditCard } from 'lucide-react';
+import { LoadingState } from '../../components/common/LoadingState';
+import { Receipt, CreditCard, RefreshCw } from 'lucide-react';
 
 import { BillingSummaryCards } from '../../components/billing/BillingSummaryCards';
 import { BillingFilters } from '../../components/billing/BillingFilters';
@@ -26,7 +27,10 @@ export const Billing = () => {
     updateInvoice,
     recordPayment,
     issueInvoice,
-    cancelInvoice
+    cancelInvoice,
+    isLoading,
+    error,
+    refreshAllData
   } = useHotel();
 
   // Pagination & Sorting state
@@ -175,6 +179,25 @@ export const Billing = () => {
       setCancellingInvoice(null);
     }
   };
+
+  if (isLoading && invoices.length === 0) {
+    return (
+      <div className="module-page billing-container">
+        <LoadingState label="Loading billing data and invoices from database..." />
+      </div>
+    );
+  }
+
+  if (error && invoices.length === 0) {
+    return (
+      <div className="module-page billing-container" style={{ padding: '2rem', textAlign: 'center' }}>
+        <p style={{ color: '#ef4444', marginBottom: '1rem' }}>{error}</p>
+        <Button onClick={refreshAllData} variant="primary" icon={RefreshCw}>
+          Retry Loading
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className="module-page billing-container">
