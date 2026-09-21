@@ -5,16 +5,10 @@ import { LogIn, LogOut, Calendar, ArrowRight } from 'lucide-react';
 
 export const ArrivalsDeparturesOverview = ({ data = {} }) => {
   const {
-    todayCheckIns = 4,
-    todayCheckOuts = 3,
-    upcomingArrivals = [
-      { id: 'RES-1003', guestName: 'Rohan Verma', roomNumber: '303', checkIn: '2026-07-25', status: 'Confirmed' },
-      { id: 'RES-1004', guestName: 'Ananya Iyer', roomNumber: '407', checkIn: '2026-07-26', status: 'Pending' }
-    ],
-    upcomingDepartures = [
-      { id: 'RES-1001', guestName: 'Aarav Sharma', roomNumber: '101', checkOut: '2026-07-27', status: 'Checked In' },
-      { id: 'RES-1002', guestName: 'Priya Menon', roomNumber: '205', checkOut: '2026-07-26', status: 'Checked In' }
-    ]
+    todayCheckIns = 0,
+    todayCheckOuts = 0,
+    upcomingArrivals = [],
+    upcomingDepartures = []
   } = data;
 
   return (
@@ -50,15 +44,21 @@ export const ArrivalsDeparturesOverview = ({ data = {} }) => {
               Upcoming Arrivals
             </h5>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              {upcomingArrivals.map((item) => (
-                <div key={item.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem', paddingBottom: '0.4rem', borderBottom: '1px dashed var(--border-subtle)' }}>
-                  <div>
-                    <strong style={{ color: 'var(--text-primary)', display: 'block' }}>{item.guestName}</strong>
-                    <span style={{ fontSize: '0.725rem', color: 'var(--text-muted)' }}>Room {item.roomNumber} • {item.checkIn}</span>
+              {upcomingArrivals.length > 0 ? (
+                upcomingArrivals.map((item) => (
+                  <div key={item.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem', paddingBottom: '0.4rem', borderBottom: '1px dashed var(--border-subtle)' }}>
+                    <div>
+                      <strong style={{ color: 'var(--text-primary)', display: 'block' }}>{item.guestName}</strong>
+                      <span style={{ fontSize: '0.725rem', color: 'var(--text-muted)' }}>Room {item.roomNumber} • {item.checkIn}</span>
+                    </div>
+                    <Badge status={item.status} size="sm">{item.status}</Badge>
                   </div>
-                  <Badge status={item.status} size="sm">{item.status}</Badge>
+                ))
+              ) : (
+                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', padding: '0.5rem 0' }}>
+                  No upcoming arrivals scheduled
                 </div>
-              ))}
+              )}
             </div>
           </div>
 
@@ -68,15 +68,21 @@ export const ArrivalsDeparturesOverview = ({ data = {} }) => {
               Upcoming Departures
             </h5>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              {upcomingDepartures.map((item) => (
-                <div key={item.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem', paddingBottom: '0.4rem', borderBottom: '1px dashed var(--border-subtle)' }}>
-                  <div>
-                    <strong style={{ color: 'var(--text-primary)', display: 'block' }}>{item.guestName}</strong>
-                    <span style={{ fontSize: '0.725rem', color: 'var(--text-muted)' }}>Room {item.roomNumber} • {item.checkOut}</span>
+              {upcomingDepartures.length > 0 ? (
+                upcomingDepartures.map((item) => (
+                  <div key={item.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.8rem', paddingBottom: '0.4rem', borderBottom: '1px dashed var(--border-subtle)' }}>
+                    <div>
+                      <strong style={{ color: 'var(--text-primary)', display: 'block' }}>{item.guestName}</strong>
+                      <span style={{ fontSize: '0.725rem', color: 'var(--text-muted)' }}>Room {item.roomNumber} • {item.checkOut}</span>
+                    </div>
+                    <Badge status={item.status} size="sm">{item.status}</Badge>
                   </div>
-                  <Badge status={item.status} size="sm">{item.status}</Badge>
+                ))
+              ) : (
+                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', padding: '0.5rem 0' }}>
+                  No upcoming departures scheduled
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </div>

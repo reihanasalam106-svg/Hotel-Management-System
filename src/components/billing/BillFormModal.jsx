@@ -50,7 +50,7 @@ export const BillFormModal = ({
       setFormData((prev) => ({
         ...prev,
         reservationId: res.id,
-        guestId: res.guestId || 'G-1001',
+        guestId: res.guestId || '',
         guestName: res.guestName,
         guestEmail: res.email || '',
         guestPhone: res.phone || '',

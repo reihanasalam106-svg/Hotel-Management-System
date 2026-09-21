@@ -4,6 +4,7 @@ import { Sidebar } from './Sidebar';
 import { Header } from './Header';
 import { Toast } from '../common/Toast';
 import { useReservations } from '../../context/ReservationContext';
+import { ErrorBoundary } from '../common/ErrorBoundary';
 import './MainLayout.css';
 
 export const MainLayout = () => {
@@ -19,7 +20,9 @@ export const MainLayout = () => {
       <div className="main-wrapper">
         <Header onToggleMobileSidebar={() => setMobileSidebarOpen(!mobileSidebarOpen)} />
         <main className="content-area">
-          <Outlet />
+          <ErrorBoundary>
+            <Outlet />
+          </ErrorBoundary>
         </main>
       </div>
 

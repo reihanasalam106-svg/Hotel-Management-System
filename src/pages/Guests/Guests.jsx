@@ -204,10 +204,10 @@ export const Guests = () => {
       />
 
       {/* 4. Guest Table / Empty State */}
-      {displayedGuests.length > 0 ? (
+      {paginatedGuests.length > 0 ? (
         <>
           <GuestTable
-            guests={displayedGuests}
+            guests={paginatedGuests}
             onViewGuest={(g) => setViewingGuest(g)}
             onEditGuest={(g) => setEditingGuest(g)}
             onChangeStatus={(id, status) => changeGuestStatus(id, status)}

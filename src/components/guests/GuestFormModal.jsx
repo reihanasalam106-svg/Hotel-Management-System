@@ -166,7 +166,7 @@ export const GuestFormModal = ({ isOpen, onClose, onSubmit, initialData = null }
                 id="email"
                 name="email"
                 className={`form-control ${errors.email ? 'is-invalid' : ''}`}
-                placeholder="e.g. arun@example.com"
+                placeholder="e.g. guest@email.com"
                 value={formData.email}
                 onChange={handleChange}
               />

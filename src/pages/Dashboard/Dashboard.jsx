@@ -8,7 +8,6 @@ import { RevenueChart } from '../../components/dashboard/RevenueChart';
 import { ReservationsChart } from '../../components/dashboard/ReservationsChart';
 import { LoadingState } from '../../components/common/LoadingState';
 import { useReservations } from '../../context/ReservationContext';
-import { revenueTrendData, bookingChannelDistribution } from '../../data/mockData';
 import './Dashboard.css';
 
 export const Dashboard = () => {
@@ -20,12 +19,14 @@ export const Dashboard = () => {
     isLoading
   } = useReservations();
 
-  // Compute live KPI and Status metrics from PostgreSQL data
+  // Compute live KPI, Status, and Chart metrics from PostgreSQL data
   const {
     dynamicKpiStats,
     occupancyData,
     roomStatusBreakdown,
-    recentList
+    recentList,
+    dynamicRevenueTrend,
+    dynamicBookingChannels
   } = useMemo(() => {
     const totalRooms = rooms.length;
     const occupied = rooms.filter(r => r.status === 'Occupied').length;
@@ -46,8 +47,8 @@ export const Dashboard = () => {
         id: 1,
         title: 'Total Revenue',
         value: `₹${totalRevenueNum.toLocaleString('en-IN')}`,
-        change: '+14.2% vs last month',
-        isPositive: true,
+        change: totalRevenueNum > 0 ? '+0.0% vs last month' : 'No revenue yet',
+        isPositive: totalRevenueNum > 0,
         icon: 'IndianRupee',
         color: '#d4af37',
         bgColor: 'rgba(212, 175, 55, 0.12)'
@@ -67,7 +68,7 @@ export const Dashboard = () => {
         title: "Active Check-Ins",
         value: String(todayCheckIns),
         change: 'Guests in house',
-        isPositive: true,
+        isPositive: todayCheckIns > 0,
         icon: 'LogIn',
         color: '#10b981',
         bgColor: 'rgba(16, 185, 129, 0.12)'
@@ -99,11 +100,50 @@ export const Dashboard = () => {
       { name: 'Out of Service', value: outOfService, color: '#be123c' }
     ];
 
+    // Dynamic 7-day daily revenue from real invoices
+    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const now = new Date();
+    const trend = [];
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(now.getDate() - i);
+      const dayStr = d.toISOString().split('T')[0];
+      const dayName = daysOfWeek[d.getDay()];
+
+      const dayRevenue = invoices
+        .filter(inv => inv.createdAt && String(inv.createdAt).split('T')[0] === dayStr)
+        .reduce((acc, inv) => acc + (Number(inv.paidAmount) || Number(inv.totalAmount) || 0), 0);
+
+      trend.push({ day: dayName, revenue: dayRevenue });
+    }
+
+    // Dynamic booking channels from real reservations
+    const channelConfigs = [
+      { name: 'Direct', color: '#c5a059' },
+      { name: 'OTA', color: '#3b82f6' },
+      { name: 'Walk-in', color: '#10b981' },
+      { name: 'Corporate', color: '#8b5cf6' }
+    ];
+
+    const totalRes = reservations.length;
+    const channelData = channelConfigs.map(c => {
+      const count = reservations.filter(r => (r.bookingSource || r.source || 'Direct').toLowerCase().includes(c.name.toLowerCase())).length;
+      const percentage = totalRes > 0 ? Math.round((count / totalRes) * 100) : 0;
+      return {
+        name: c.name,
+        value: percentage,
+        count,
+        color: c.color
+      };
+    });
+
     return {
       dynamicKpiStats: kpis,
       occupancyData: occ,
       roomStatusBreakdown: breakdown,
-      recentList: reservations.slice(0, 5)
+      recentList: reservations.slice(0, 5),
+      dynamicRevenueTrend: trend,
+      dynamicBookingChannels: channelData
     };
   }, [rooms, reservations, invoices]);
 
@@ -136,7 +176,7 @@ export const Dashboard = () => {
       {/* Charts & Status Widgets Layout */}
       <div className="dashboard-middle-grid">
         <div className="revenue-chart-col">
-          <RevenueChart data={revenueTrendData} />
+          <RevenueChart data={dynamicRevenueTrend} />
         </div>
         <div className="occupancy-status-col">
           <OccupancyCard occupancyData={occupancyData} />
@@ -153,7 +193,7 @@ export const Dashboard = () => {
           />
         </div>
         <div className="booking-distribution-col">
-          <ReservationsChart data={bookingChannelDistribution} />
+          <ReservationsChart data={dynamicBookingChannels} />
         </div>
       </div>
     </div>
@@ -161,3 +201,4 @@ export const Dashboard = () => {
 };
 
 export default Dashboard;
+
