@@ -3,7 +3,21 @@
  * Connects React frontend to Node.js + Express + PostgreSQL backend.
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
+export function getApiBaseUrl() {
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (!envUrl) {
+    return 'http://localhost:5000/api/v1';
+  }
+  let base = envUrl.trim().replace(/\/+$/, '');
+  if (!base.includes('/api/v1')) {
+    if (base.endsWith('/api')) {
+      base = `${base}/v1`;
+    } else {
+      base = `${base}/api/v1`;
+    }
+  }
+  return base;
+}
 
 export const TOKEN_KEY = 'hotelpro_token';
 export const USER_KEY = 'hotelpro_user';
@@ -96,7 +110,7 @@ async function handleResponse(response) {
  */
 function buildUrl(endpoint, params) {
   const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
-  const base = API_BASE_URL.endsWith('/') ? API_BASE_URL.slice(0, -1) : API_BASE_URL;
+  const base = getApiBaseUrl();
   const fullUrlString = base.startsWith('http')
     ? `${base}${cleanEndpoint}`
     : `${typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5173'}${base}${cleanEndpoint}`;
